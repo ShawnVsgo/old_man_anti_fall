@@ -1,0 +1,46 @@
+# STM32CubeMX 用户配置文件
+.mxproject
+
+# Keil IDE 项目文件（用户特定配置）
+*.uvguix.*
+# *.uvoptx
+# *.uvprojx
+*.lnp
+
+# 构建输出和中间文件
+*.axf
+*.hex
+*.map
+*.htm
+*.sct
+*.dep
+*.crf
+*.d
+*.o
+*.log
+*.lock
+*.lst
+*.scvd
+*.iex
+*.build_log.htm
+
+# Keil 生成的文件（MDK-ARM 目录下的构建产物）
+MDK-ARM/DebugConfig/*.dbgconf
+MDK-ARM/EventRecorderStub.scvd
+MDK-ARM/startup_stm32f103xb.lst
+MDK-ARM/P01_location_hal/*
+
+# VSCode 本地配置（避免共享编辑器设置）
+.vscode/
+MDK-ARM/.vscode/
+
+# Keil RTE 自动生成的文件
+MDK-ARM/RTE/
+
+# 忽略 CubeMX 备份文件（如果有）
+*.ioc.bak
+
+# 其他临时文件
+*.~
+*.bak
+*.tmp
