@@ -53,9 +53,9 @@ static void Int_QS100_SendCmd(uint8_t *cmd)
 void Int_QS100_Wkup(void)
 {
     HAL_GPIO_WritePin(NB_WKUP_GPIO_Port, NB_WKUP_Pin, GPIO_PIN_SET);
-    HAL_Delay(5);
+    vTaskDelay(5);
     HAL_GPIO_WritePin(NB_WKUP_GPIO_Port, NB_WKUP_Pin, GPIO_PIN_RESET);
-    HAL_Delay(5);
+    vTaskDelay(5);
 }
 
 void Int_QS100_Init()
@@ -163,7 +163,7 @@ CommmonStatus Int_QS100_Send_Data_to_Server(uint8_t socket, uint8_t *pData, uint
     while (tmp != '0' && tmp != '1')
     {
         // 手动在这里加延迟
-        HAL_Delay(5);
+        vTaskDelay(5);
         Int_QS100_SendCmd(cmd);
         tmp = iot_full_buff[iot_full_buff_len - 9];
     }
@@ -202,7 +202,7 @@ CommmonStatus Int_QS100_Send_Data(uint8_t *data, uint16_t len)
     {
         status = Int_QS100_GetIP();
         count --;
-        HAL_Delay(100);
+        vTaskDelay(100);
     }
 
     if(count == 0)
@@ -221,7 +221,7 @@ CommmonStatus Int_QS100_Send_Data(uint8_t *data, uint16_t len)
     {
        status = Int_QS100_Create_Client(&socket);
        count--;
-       HAL_Delay(100);
+       vTaskDelay(100);
     }
     if (count==0)
     {
@@ -238,7 +238,7 @@ CommmonStatus Int_QS100_Send_Data(uint8_t *data, uint16_t len)
     {
         status = Int_QS100_Connect_Server(socket,HTTP_SERVER_IP,HTTP_SERVER_PORT);
         count --;
-        HAL_Delay(100);
+        vTaskDelay(100);
     }
 
     if (count == 0)
@@ -256,7 +256,7 @@ CommmonStatus Int_QS100_Send_Data(uint8_t *data, uint16_t len)
    {
      status = Int_QS100_Send_Data_to_Server(socket,data,len);
      count --;
-     HAL_Delay(100);
+     vTaskDelay(100);
    }
    if (count == 0)
    {
@@ -281,7 +281,7 @@ CommmonStatus Int_QS100_Send_Data(uint8_t *data, uint16_t len)
    }
    debug_println("QS100关闭客户端成功");
    //发送不能过于频繁 1s/次
-   HAL_Delay(1000);
+   vTaskDelay(1000);
    return COMMON_OK;
 }
 

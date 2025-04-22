@@ -3,6 +3,8 @@
 
 #include "Driver_I2C2.h"
 #include "Com_Types.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #define my_abs(x)            ((x) < 0 ? -(x) : (x))
 
 // MPU6050地址定义 
@@ -88,5 +90,6 @@
 // 原有函数声明保持不变
 void Int_MPU6050_Init(void);
 void Int_MPU6050_ReadGryo_Accel(GyroAccel_Struct *gryo_accel);
+void Int_MPU6050_Calibration(void);
 // void Int_MPU6050_Convert(GyroAccel_Struct *gyro_accel);
 #endif /* __INF_MPU6050_H__ */

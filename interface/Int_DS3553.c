@@ -2,20 +2,20 @@
 static void Int_DS3553_ReadReg(uint8_t reg_addr, uint8_t *reg_data)
 {
 	DS3553_CS_L;
-	HAL_Delay(5);
+	vTaskDelay(5);
 	HAL_I2C_Mem_Read(&hi2c1, DS3553_ADDR_R, reg_addr, I2C_MEMADD_SIZE_8BIT, reg_data, 1, 1000);
 	DS3553_CS_H;
-	HAL_Delay(12);
+	vTaskDelay(12);
 	
 }
 
 static void Int_DS3553_WriteReg(uint8_t reg_addr, uint8_t reg_data)
 {
 	DS3553_CS_L;
-	HAL_Delay(5);
+	vTaskDelay(5);
 	HAL_I2C_Mem_Write(&hi2c1, DS3553_ADDR_W, reg_addr, I2C_MEMADD_SIZE_8BIT, &reg_data, 1, 1000);
 	DS3553_CS_H;
-	HAL_Delay(12);
+	vTaskDelay(12);
 }
 
 void Int_DS3553_Init(void)

@@ -200,7 +200,7 @@ uint8_t llcc68_interface_busy_gpio_read(uint8_t *value)
  */
 void llcc68_interface_delay_ms(uint32_t ms)
 {
-    HAL_Delay(ms);
+    vTaskDelay(ms);
 }
 
 /**

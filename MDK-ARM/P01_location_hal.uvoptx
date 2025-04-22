@@ -1015,6 +1015,26 @@
   </Group>
 
   <Group>
+    <GroupName>inerface/qs100</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>60</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\interface\Inf_qs100\Inf_qs100_mqtt.c</PathWithFileName>
+      <FilenameWithoutPath>Inf_qs100_mqtt.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
     <GroupName>::CMSIS</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>

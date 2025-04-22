@@ -4,6 +4,8 @@
 #include "main.h"
 #include "i2c.h"
 #include "Com_Debug.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #define DS3553_ADDR 0X27
 #define DS3553_ADDR_W 0X4E
 #define DS3553_ADDR_R 0X4F

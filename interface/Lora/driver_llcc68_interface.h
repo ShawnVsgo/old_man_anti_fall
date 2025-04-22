@@ -40,6 +40,8 @@
 #include "driver_llcc68.h"
 #include "spi.h"
 #include <stdarg.h>
+#include "FreeRTOS.h"
+#include "task.h"
 
 #ifdef __cplusplus
 extern "C"{

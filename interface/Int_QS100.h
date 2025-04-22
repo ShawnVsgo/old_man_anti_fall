@@ -3,6 +3,8 @@
 #include "usart.h"
 #include "Com_Debug.h"
 #include "Com_Config.h"
+#include "FreeRTOS.h"
+#include "task.h"
 void Int_QS100_Init(void);
 void Int_QS100_Enter_Lower_Power(void);
 void Int_QS100_Exit_Lower_Power(void);

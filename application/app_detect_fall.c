@@ -1,16 +1,15 @@
 #include "app_detect_fall.h"
 Gyro_Struct last_gyro;
 EulerAngle euler_angle;
-static uint32_t last_time = 0;
-float dt = 0;
+float last_time = 0;
+float dt = 0; // 6ms
 bool app_fall_detect(void)
 {
     static FallState fall_state = FALL_STATE_NORMAL;
     static uint32_t impact_time = 0;
     GyroAccel_Struct mpu_data;
     float acc_total;
-    // float angle;
-    // 在读取MPU6050数据之前计算dt
+    //在读取MPU6050数据之前计算dt
     uint32_t current_time = HAL_GetTick();
     dt = (current_time - last_time) / 1000.0f;  // 转换为秒
     last_time = current_time;
@@ -31,29 +30,35 @@ bool app_fall_detect(void)
     Com_IMU_GetEulerAngle(&mpu_data, &euler_angle, dt);
     // 计算Z轴加速度
     acc_total = Com_IMU_GetNormAccZ()/8192.0f;
+
+    
     
     switch(fall_state)
     {
         case FALL_STATE_NORMAL:
-            // 检测冲击
-            if(acc_total > FALL_ACCEL_THRESHOLD) {
-                fall_state = FALL_STATE_IMPACT;
-                impact_time = HAL_GetTick();
-            }
+            // 检测冲击(加速度突变)
+            // if(acc_total > FALL_ACCEL_THRESHOLD) {
+            //     fall_state = FALL_STATE_IMPACT;
+            //     impact_time = HAL_GetTick();
+            // }
+            fall_state = FALL_STATE_IMPACT;
+            impact_time = HAL_GetTick();
             break;
             
         case FALL_STATE_IMPACT:
-            debug_println("acc_total: %f", acc_total);
-            if((abs(euler_angle.pitch) > FALL_ANGLE_THRESHOLD)||(abs(euler_angle.roll) > FALL_ANGLE_THRESHOLD) ||(abs(euler_angle.yaw) > FALL_ANGLE_THRESHOLD)) {
+            debug_println("accel,pitch,roll:%f,%f,%f", acc_total,euler_angle.pitch, euler_angle.roll);
+            if(((abs(euler_angle.pitch)) > FALL_ANGLE_THRESHOLD)||((abs(euler_angle.roll)) > FALL_ANGLE_THRESHOLD)) {
+              
                 fall_state = FALL_STATE_LYING;
-            } else  {
+            }
+            else
+            {
                 fall_state = FALL_STATE_NORMAL;
             }
             break;
             
         case FALL_STATE_LYING:
-            debug_println("pitch: %f, roll: %f, yaw: %f", euler_angle.pitch, euler_angle.roll, euler_angle.yaw);
-            if ((abs(euler_angle.pitch) < 30)&&(abs(euler_angle.roll) < 30) &&(abs(euler_angle.yaw) < 30))
+            if (((abs(euler_angle.pitch)) < 30)&&((abs(euler_angle.roll)) < 30))
             {
                 fall_state = FALL_STATE_NORMAL;
             }

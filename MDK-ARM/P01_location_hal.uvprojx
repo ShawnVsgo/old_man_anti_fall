@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../application;../common;../interface;../interface/Lora;../driver;../free_rtos/include;../free_rtos/portable;../task</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../application;../common;../interface;../interface/Lora;../driver;../free_rtos/include;../free_rtos/portable;../task;..\interface\Inf_qs100</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1136,6 +1136,16 @@
               <FileName>task_get_info.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\task\task_get_info.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>inerface/qs100</GroupName>
+          <Files>
+            <File>
+              <FileName>Inf_qs100_mqtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\interface\Inf_qs100\Inf_qs100_mqtt.c</FilePath>
             </File>
           </Files>
         </Group>

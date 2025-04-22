@@ -8,7 +8,7 @@
 #include "Com_IMU.h"
 #include "Com_Filter.h"
 // 添加跌倒检测相关定义
-#define FALL_ACCEL_THRESHOLD    0.1f    // 加速度阈值 (约2.5g)
+#define FALL_ACCEL_THRESHOLD    0    // 加速度阈值 (约2.5g)
 #define FALL_ANGLE_THRESHOLD    70      // 角度阈值 (度)
 #define STATIC_DETECT_TIME      3000     // 静止检测时间(ms)
 // 跌倒检测状态

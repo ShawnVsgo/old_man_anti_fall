@@ -56,7 +56,7 @@ void Int_AT6558R_EXIT_Low_Power(void)
 {
     HAL_GPIO_WritePin(GPS_EN_GPIO_Port,GPS_EN_Pin,GPIO_PIN_SET);
     //给予一定的唤醒时间，跳过开机信息的输出 $GPTXT,01,01,02 保证后期数据处理的完整性
-    HAL_Delay(1000);
+    vTaskDelay(1000);
 }
 
 /**

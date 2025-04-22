@@ -61,7 +61,7 @@ void Int_MPU6050_Init(void)
     //  HAL_I2C_Init(&hi2c1);
     // 2.复位（复位后的值不是0x00而是0x40）
     Int_MPU6050_Write_Byte(MPU_PWR_MGMT1_REG, 0X80);
-    HAL_Delay(100);
+    vTaskDelay(100);
     // 3.唤醒(将0x40改为0x00)即将SLEEP位清零
     Int_MPU6050_Write_Byte(MPU_PWR_MGMT1_REG, 0X00);
     // 4.设置角速度传感器(陀螺仪)和加速度传感器的满量程范围
@@ -120,7 +120,7 @@ void Int_MPU6050_Calibration(void)
     Gyro_Struct last_gyro;
     Gyro_Struct cur_gyro;
     Int_MPU6050_Read_Gyro(&last_gyro);
-    HAL_Delay(2);
+    vTaskDelay(2);
     while (count < 100)
     {
         Int_MPU6050_Read_Gyro(&cur_gyro);
@@ -138,7 +138,7 @@ void Int_MPU6050_Calibration(void)
         // last_gyro.x = cur_gyro.x;
         // last_gyro.y = cur_gyro.y;
         // last_gyro.z = cur_gyro.z;
-        HAL_Delay(2);
+        vTaskDelay(2);
     }
 
     // 2. 读取当前的值当做偏移量 => 读200次取平均值
@@ -153,7 +153,7 @@ void Int_MPU6050_Calibration(void)
         gyro_acc_sum[3] += gyro_acc_temp.accel.x;
         gyro_acc_sum[4] += gyro_acc_temp.accel.y;
         gyro_acc_sum[5] += gyro_acc_temp.accel.z - 8192;
-        HAL_Delay(2);
+        vTaskDelay(2);
     }
     gyro_acc_bias.gyro.x = gyro_acc_sum[0] / 200;
     gyro_acc_bias.gyro.y = gyro_acc_sum[1] / 200;
