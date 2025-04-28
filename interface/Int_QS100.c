@@ -17,9 +17,13 @@ uint16_t iot_full_buff_len;
 static void Int_QS100_Reboot(void)
 {
     uint8_t *cmd = "AT+RB\r\n";
+    taskENTER_CRITICAL(); // 进入临界区，禁止中断
     HAL_UART_Transmit(&huart3, cmd, strlen((char *)cmd), 1000);
+    taskEXIT_CRITICAL(); // 退出临界区，允许中断
 
+    taskENTER_CRITICAL(); // 进入临界区，禁止中断
     HAL_UART_Receive(&huart3, iot_buff, IOT_BUFF_MAX_LEN, 5000);
+    taskEXIT_CRITICAL(); // 退出临界区，允许中断
     iot_buff_len = strlen((char *)iot_buff);
 
     if (iot_buff_len > 0)
@@ -30,15 +34,19 @@ static void Int_QS100_Reboot(void)
     }
 }
 
-static void Int_QS100_SendCmd(uint8_t *cmd)
+void Int_QS100_SendCmd(uint8_t *cmd)
 {
+    taskENTER_CRITICAL();
     HAL_UART_Transmit(&huart3, cmd, strlen((char *)cmd), 1000);
+
 
     memset(iot_full_buff, 0, IOT_FULL_BUFF_MAX_LEN);
     iot_full_buff_len = 0;
     do
     {
+     
         HAL_UARTEx_ReceiveToIdle(&huart3, iot_buff, IOT_BUFF_MAX_LEN, &iot_buff_len, 3000);
+       
         if (iot_buff_len > 0)
         {
             memcpy(&iot_full_buff[iot_full_buff_len], iot_buff, iot_buff_len);
@@ -46,8 +54,8 @@ static void Int_QS100_SendCmd(uint8_t *cmd)
             memset(iot_buff, 0, IOT_BUFF_MAX_LEN);
             iot_buff_len = 0;
         }
-
     } while (strstr((char *)iot_full_buff, "OK") == NULL && strstr((char *)iot_full_buff, "ERROR") == NULL);
+    taskEXIT_CRITICAL();
     debug_println("when QS100 send cmd:[%s] Reply :[%s]", cmd, iot_full_buff);
 }
 void Int_QS100_Wkup(void)
@@ -66,7 +74,7 @@ void Int_QS100_Init()
     //  Int_QS100_Wkup();
 
     // 重启设备
-    Int_QS100_Reboot();
+    // Int_QS100_Reboot();
     // 打开串口回显
     Int_QS100_SendCmd("ATE1\r\n");
     // 查询软件版本信息

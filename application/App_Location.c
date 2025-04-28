@@ -13,14 +13,14 @@ void App_Location_Get_GPS_Data(void)
      double lat, lon;
      uint8_t lat_dir, lon_dir;
 
-    Int_AT6558R_Init();
+    // Int_AT6558R_Init();
 
    
    
     while (retry_count < max_retry)
     {
-        Int_AT6558R_Read_GPS();
-        if (gps_full_buff_len > 0)
+        // Int_AT6558R_Read_GPS();
+        if (gps_full_buff_len == 0)
         {
             uint8_t tmp;
             //$GNRMC,013050.000,A,3106.67898,N,12113.52954,E,5.19,77.74,160125,,,A,V*31
@@ -82,7 +82,7 @@ void App_Location_Get_GPS_Data(void)
 
 void App_Location_Get_Step_Count(void)
 {
-    Int_DS3553_Init();
+    // Int_DS3553_Init();
     uint32_t step_count = 0;
     //读取运动步数
     Int_DS3553_Get_Step(&step_count);
@@ -117,7 +117,7 @@ void App_Location_Data_to_JSON(void)
 
 void App_Location_Send_Data(void)
 {
-    Int_QS100_Init();
+    // Int_QS100_Init();
     
     CommmonStatus status = Int_QS100_Send_Data(upload_data.data,upload_data.dataLen);
     status = COMMON_ERROR;//生产环境请注释掉

@@ -2,7 +2,8 @@
 void Int_MPU6050_Calibration(void);
 GyroAccel_Struct gyro_acc_bias;
 void Int_MPU6050_Write_Byte(uint8_t reg, uint8_t data)
-{
+{   
+    taskENTER_CRITICAL();
     // HAL_I2C_Mem_Write(&hi2c1, MPU6050_ADDR_W, reg, I2C_MEMADD_SIZE_8BIT, &data, 1, 100);
     Driver_I2C2_Start();
     Driver_I2C2_SendByte(MPU6050_ADDR_W);
@@ -12,11 +13,14 @@ void Int_MPU6050_Write_Byte(uint8_t reg, uint8_t data)
     Driver_I2C2_SendByte(data);
     Driver_I2C2_ReceiveACK();
     Driver_I2C2_Stop();
+    taskEXIT_CRITICAL();
 
 }
 void Int_MPU6050_Read_Byte(uint8_t reg, uint8_t *data)
 {
+
     // HAL_I2C_Mem_Read(&hi2c1, MPU6050_ADDR_R, reg, I2C_MEMADD_SIZE_8BIT, data, 1, 100);
+    taskENTER_CRITICAL();
     Driver_I2C2_Start();
     Driver_I2C2_SendByte(MPU6050_ADDR_W);
     Driver_I2C2_ReceiveACK();
@@ -28,11 +32,13 @@ void Int_MPU6050_Read_Byte(uint8_t reg, uint8_t *data)
     *data = Driver_I2C2_ReceiveByte();
     Driver_I2C2_SendACK(1);
     Driver_I2C2_Stop();
+    taskEXIT_CRITICAL();
 
 }
 void Int_MPU6050_Read_Bytes(uint8_t reg, uint8_t *data, uint8_t len)
 {
     // HAL_I2C_Mem_Read(&hi2c1, MPU6050_ADDR_R, reg, I2C_MEMADD_SIZE_8BIT, data, len, 100);
+    taskENTER_CRITICAL();
     Driver_I2C2_Start();
     Driver_I2C2_SendByte(MPU6050_ADDR_W);
     Driver_I2C2_ReceiveACK();
@@ -54,6 +60,7 @@ void Int_MPU6050_Read_Bytes(uint8_t reg, uint8_t *data, uint8_t len)
         }
     }
     Driver_I2C2_Stop();
+    taskEXIT_CRITICAL();
 }
 void Int_MPU6050_Init(void)
 {
@@ -75,7 +82,6 @@ void Int_MPU6050_Init(void)
     // 6.配置系统时钟源 并始能角速度和加速度传感器
     Int_MPU6050_Write_Byte(MPU_PWR_MGMT1_REG, 0X01); // 时钟源为X轴
     Int_MPU6050_Write_Byte(MPU_PWR_MGMT2_REG, 0X00); // 使能加速度和陀螺仪
-
     // 7.校准芯片
     Int_MPU6050_Calibration();
 }

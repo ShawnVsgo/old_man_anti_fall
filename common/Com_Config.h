@@ -2,7 +2,7 @@
 #define __COM_CONFIG_H__
 
 #define HTTP_SERVER_IP "112.125.89.8"
-#define HTTP_SERVER_PORT 47336
+#define HTTP_SERVER_PORT 46227
 
 typedef enum
 {

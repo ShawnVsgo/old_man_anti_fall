@@ -1,4 +1,7 @@
+> 这个项目无法正常运行,应该和内存有关的问题,可以单独测试每一个模块是没有问题的.
+
 ```\
+
 在Com_Config.h中设置服务器IP和Port（在keil中不显示头文件）
 App_Location.c第118行 生产环境请注释
 串口打印调试信息在Com_Debug.h中第9行
@@ -50,7 +53,11 @@ App_Location.c第118行 生产环境请注释
  # day02
 
 1. 创建应用层app_detect_fall.h/c文件,实现摔到检测函数**bool app_fall_detect(void);**
-
 2. 在 app_fall_detect(void) 函数中调用Com_IMU.h 中的函数计算Z轴的加速度和欧拉角
-
 3. 状态机方式检测是否跌倒
+
+# day03
+
+添加QS100芯片的MQTT发送代码
+
+骑仕100芯片我无法找到MQTT接收的方式，所以只实现了发送。代码写很粗糙。

@@ -110,7 +110,6 @@ int main(void)
   // uint8_t data[10]="HELLO";
   // Int_QS100_Send_Data(data,5);
   // uint8_t status = Int_Lora_Init();
-  // debug_println("Lora init ok...%d",status);
 
   
   

@@ -7,7 +7,8 @@
 #include "Com_Config.h"
 #include "Com_Tools.h"
 #include "cJSON.h"
-#include "Int_QS100.h" //IOTÎïÁ¬Íø·¢ËÍĞ¾Æ¬
+#include "Int_QS100.h" //IOTç‰©è¿ç½‘å‘é€èŠ¯ç‰‡
+extern Upload_Struct upload_data;
 void App_Location_Get_GPS_Data(void);
 
 void App_Location_Get_Step_Count(void);

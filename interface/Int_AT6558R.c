@@ -28,7 +28,9 @@ static void Int_AT6558R_Send_CMD(const char * cmd)
     // 拼接发送的名称 => 拼接校验和的细节 8和08不一样  1A 和 1a不一样
     sprintf((char *)send_cmd,"$%s*%02X\r\n",cmd,cs);
     debug_println("send cmd is:%s",send_cmd);
+    taskENTER_CRITICAL();
     HAL_UART_Transmit(&huart2,send_cmd,strlen((char*)send_cmd),1000);
+    taskEXIT_CRITICAL();
     
 }
 void Int_AT6558R_Init(void)
@@ -90,8 +92,9 @@ void Int_AT6558R_Read_GPS(void)
     gps_full_buff_len =0;
 
     do
-    {
+    {   taskENTER_CRITICAL();
         HAL_UARTEx_ReceiveToIdle(&huart2,gps_buff,GPS_BUFF_MAX_LEN,&gps_buff_len,1000);
+        taskEXIT_CRITICAL();
         memcpy(&gps_full_buff[gps_full_buff_len],gps_buff,gps_buff_len);
         gps_full_buff_len += gps_buff_len;
 

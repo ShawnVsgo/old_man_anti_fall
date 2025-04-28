@@ -90,7 +90,10 @@ NVIC value of 255. */
 #define configUSE_TIMERS                1   // 启用软件定时器功能
 #define configTIMER_TASK_PRIORITY      ( 4 )   // 定时器服务任务的优先级
 #define configTIMER_QUEUE_LENGTH       10      // 定时器命令队列长度
-#define configTIMER_TASK_STACK_DEPTH   ( configMINIMAL_STACK_SIZE * 2 )  // 定时器服务任务的栈大小
+#define configTIMER_TASK_STACK_DEPTH  128
+
+// #define INCLUDE_eTaskGetState 1
+// #define INCLUDE_uxTaskGetStackHighWaterMark 1
 
 #endif /* FREERTOS_CONFIG_H */
 

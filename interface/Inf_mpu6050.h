@@ -5,6 +5,7 @@
 #include "Com_Types.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "Com_Debug.h"
 #define my_abs(x)            ((x) < 0 ? -(x) : (x))
 
 // MPU6050地址定义 
